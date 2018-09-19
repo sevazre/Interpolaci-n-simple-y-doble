@@ -1,0 +1,123 @@
+%%HP: T(0)A(D)F(.);
+@ Argumentos:
+@ Autor:
+@ E-mail:
+@ VersiÛn:
+@ Creado con HPUserEdit 6
+
+DIR
+INTERPOLCOM
+´
+'E' PURGE
+CLLCD
+DO
+  'E' PURGE
+  "øQUE DESEA HACER?"
+  {{"INTERPOLACION" 1.}
+  {"DOBLE INTERP." 2.}
+  {"SALIR" 3.}}
+  1
+  CHOOSE DROP 'E' STO
+
+  CASE'E==1'
+  THEN
+'R' PURGE
+'Yx' PURGE
+DO
+"INTERPOL Y EXTRAPOL" { "X1" "Y1" "X2" "Y2" "X" } 2 { } { } INFORM
+  IF
+  THEN OBJç DROP ç X1 Y1 X2 Y2 X
+    ´ " RESULTADOS " "
+" 1 DISP "
+" + "
+" + '(X-X1)*(Y2-Y1)/(X2-X1)+Y1' çNUM "Yx=" çTAG "
+" + + SCROLL
+    '(X-X1)*(Y2-Y1)/(X2-X1)+Y1'EVAL 'Yx' STO
+    ª
+  ELSE
+  END
+1. 'R' STO
+
+"SALIR" { { "NO" 1. } { "SÕ" 2. } } 1. CHOOSE DROP 'R' STO
+
+UNTIL 'R==2.'
+END
+"Ultimo resultado almacenado en la variable 'Yx' " MSGBOX
+'R' PURGE
+    CLLCD
+  END
+  END
+
+  CASE 'E==2'
+        THEN
+
+DO
+"DOBLE-INTERP."
+{
+{ "C1" "VAR C1" 0 }
+{ "CX" "VAR CX" 0 }
+{ "C2" "VAR C2" 0 }
+{ "F1" "VAR F1" 0 }
+{ "A" "ELEMENTO F1C1" 0 }
+{ "C" "ELEMENTO F1C2" 0 }
+{ "F2" "VAR F2" 0 }
+{ "B" "ELEMENTO F2C2" 0 }
+{ "D" "ELEMENTO F2C2" 0 }
+{ "FX" "VAR FX" 0 }
+}
+3
+{ }
+{ }
+INFORM
+IF
+THEN
+  OBJç DROP ç C1 CX C2 F1 A C F2 B D FX
+    ´ " RESULTADOS " "
+" 1 DISP "
+" + "
+" + 'A-((A-B)*(F1-FX))/(F1-F2)-((C1-CX)*(A-C-((A-B)*(F1-FX))/(F1-F2)+((C-D)*(F1-FX))/(F1-F2)))/(C1-C2)' çNUM "Yx=" çTAG "
+" + + SCROLL
+    'A-((A-B)*(F1-FX))/(F1-F2)-((C1-CX)*(A-C-((A-B)*(F1-FX))/(F1-F2)+((C-D)*(F1-FX))/(F1-F2)))/(C1-C2)'EVAL 'Yx' STO
+ª
+ELSE
+END
+
+
+1. 'R' STO
+"SALIR" { { "NO" 1. } { "SÕ" 2. } } 1. CHOOSE DROP 'R' STO
+UNTIL 'R==2.'
+END
+"Ultimo resultado almacenado en la variable 'Yx' " MSGBOX
+'R' PURGE
+
+            CLLCD
+  END
+  END
+
+UNTIL 'E==3'
+END
+'E' PURGE
+ª
+
+  $CONFIG
+    ´ 786 ATTACH ª               @ ´ #integer ATTACH ª         @
+
+  $HIDDEN
+    { }                      @ { hidden identifiers ...  } @
+
+  $VISIBLE
+    { INTERPOLCOM }                      @ { visible identifiers ... } @
+
+  $ROMID
+    786                     @ #integer
+
+  $TITLE
+    "INTERPOLCOM
+     Author:Sebastian 
+     Calc:
+     Version:"               @ "Library Title"             @
+END
+
+HOME 'dirTemp' PGDIR
+'dirTemp' STO
+dirTemp CRLIB
